@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D30EC3E9183496D9004EE702 /* ios6.ft in Resources */ = {isa = PBXBuildFile; fileRef = D30EC3E8183496D9004EE702 /* ios6.ft */; };
+		D30EC3EB183496E8004EE702 /* ios7.ft in Resources */ = {isa = PBXBuildFile; fileRef = D30EC3EA183496E8004EE702 /* ios7.ft */; };
+		D30EC3EE1834990B004EE702 /* NetFontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D30EC3ED1834990B004EE702 /* NetFontViewController.m */; };
+		D30EC3F118349C59004EE702 /* FontCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D30EC3F018349C59004EE702 /* FontCell.m */; };
 		D3A91B761833BA0000763938 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A91B751833BA0000763938 /* Foundation.framework */; };
 		D3A91B781833BA0000763938 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A91B771833BA0000763938 /* CoreGraphics.framework */; };
 		D3A91B7A1833BA0000763938 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A91B791833BA0000763938 /* UIKit.framework */; };
@@ -34,6 +38,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D30EC3E8183496D9004EE702 /* ios6.ft */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ios6.ft; sourceTree = "<group>"; };
+		D30EC3EA183496E8004EE702 /* ios7.ft */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ios7.ft; sourceTree = "<group>"; };
+		D30EC3EC1834990B004EE702 /* NetFontViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetFontViewController.h; sourceTree = "<group>"; };
+		D30EC3ED1834990B004EE702 /* NetFontViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetFontViewController.m; sourceTree = "<group>"; };
+		D30EC3EF18349C59004EE702 /* FontCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontCell.h; sourceTree = "<group>"; };
+		D30EC3F018349C59004EE702 /* FontCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontCell.m; sourceTree = "<group>"; };
 		D3A91B721833BA0000763938 /* FontOutput.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FontOutput.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3A91B751833BA0000763938 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D3A91B771833BA0000763938 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -117,8 +127,12 @@
 				D3A91B871833BA0000763938 /* Main.storyboard */,
 				D3A91B8A1833BA0000763938 /* ViewController.h */,
 				D3A91B8B1833BA0000763938 /* ViewController.m */,
+				D30EC3EF18349C59004EE702 /* FontCell.h */,
+				D30EC3F018349C59004EE702 /* FontCell.m */,
 				D3A91B8D1833BA0000763938 /* Images.xcassets */,
 				D3A91B7C1833BA0000763938 /* Supporting Files */,
+				D30EC3EC1834990B004EE702 /* NetFontViewController.h */,
+				D30EC3ED1834990B004EE702 /* NetFontViewController.m */,
 			);
 			path = FontOutput;
 			sourceTree = "<group>";
@@ -126,10 +140,12 @@
 		D3A91B7C1833BA0000763938 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D30EC3E8183496D9004EE702 /* ios6.ft */,
 				D3A91B7D1833BA0000763938 /* FontOutput-Info.plist */,
 				D3A91B7E1833BA0000763938 /* InfoPlist.strings */,
 				D3A91B811833BA0000763938 /* main.m */,
 				D3A91B831833BA0000763938 /* FontOutput-Prefix.pch */,
+				D30EC3EA183496E8004EE702 /* ios7.ft */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -228,8 +244,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D30EC3E9183496D9004EE702 /* ios6.ft in Resources */,
 				D3A91B8E1833BA0000763938 /* Images.xcassets in Resources */,
 				D3A91B801833BA0000763938 /* InfoPlist.strings in Resources */,
+				D30EC3EB183496E8004EE702 /* ios7.ft in Resources */,
 				D3A91B891833BA0000763938 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,7 +269,9 @@
 			files = (
 				D3A91B8C1833BA0000763938 /* ViewController.m in Sources */,
 				D3A91B861833BA0000763938 /* AppDelegate.m in Sources */,
+				D30EC3F118349C59004EE702 /* FontCell.m in Sources */,
 				D3A91B821833BA0000763938 /* main.m in Sources */,
+				D30EC3EE1834990B004EE702 /* NetFontViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +480,7 @@
 				D3A91BA61833BA0000763938 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D3A91BA71833BA0000763938 /* Build configuration list for PBXNativeTarget "FontOutputTests" */ = {
 			isa = XCConfigurationList;
@@ -468,6 +489,7 @@
 				D3A91BA91833BA0000763938 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
