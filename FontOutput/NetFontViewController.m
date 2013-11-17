@@ -55,15 +55,22 @@
 }
 
 #pragma mark - Table view data source
-- (void)asynchronouslySetFontName:(NSString *)fontName
+/**
+ *  查看该字体是否存在，不存在会去网上下载
+ *
+ *  @param fontName     字体名
+ *  @param label        预览label
+ *  @param progressView 下载进度
+ */
+- (void)asynchronouslySetFontName:(NSString *)fontName previewLabel:(UILabel *)label progressView:(UIProgressView *)progressView
 {
 	UIFont* aFont = [UIFont fontWithName:fontName size:12.];
-    // If the font is already downloaded
+    // 查看该字体在系统是否已经存在
 	if (aFont && ([aFont.fontName compare:fontName] == NSOrderedSame || [aFont.familyName compare:fontName] == NSOrderedSame)) {
         // Go ahead and display the sample text.
 		NSUInteger sampleIndex = [_fontNames indexOfObject:fontName];
-		_fTextView.text = [_fontSamples objectAtIndex:sampleIndex];
-		_fTextView.font = [UIFont fontWithName:fontName size:24.];
+		label.text = [_fontSamples objectAtIndex:sampleIndex];
+		label.font = [UIFont fontWithName:fontName size:24.];
 		return;
 	}
 	
@@ -91,26 +98,20 @@
 		
 		if (state == kCTFontDescriptorMatchingDidBegin) {
 			dispatch_async( dispatch_get_main_queue(), ^ {
-                // Show an activity indicator
-				[_fActivityIndicatorView startAnimating];
-				_fActivityIndicatorView.hidden = NO;
                 
                 // Show something in the text view to indicate that we are downloading
-                _fTextView.text= [NSString stringWithFormat:@"Downloading %@", fontName];
-				_fTextView.font = [UIFont systemFontOfSize:14.];
+                label.text= [NSString stringWithFormat:@"Downloading %@", fontName];
+				label.font = [UIFont systemFontOfSize:14.];
 				
 				NSLog(@"Begin Matching");
 			});
 		} else if (state == kCTFontDescriptorMatchingDidFinish) {
 			dispatch_async( dispatch_get_main_queue(), ^ {
-                // Remove the activity indicator
-				[_fActivityIndicatorView stopAnimating];
-				_fActivityIndicatorView.hidden = YES;
-                
+
                 // Display the sample text for the newly downloaded font
 				NSUInteger sampleIndex = [_fontNames indexOfObject:fontName];
-				_fTextView.text = [_fontSamples objectAtIndex:sampleIndex];
-				_fTextView.font = [UIFont fontWithName:fontName size:24.];
+				label.text = [_fontSamples objectAtIndex:sampleIndex];
+				label.font = [UIFont fontWithName:fontName size:24.];
 				
                 // Log the font URL in the console
 				CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)fontName, 0., NULL);
@@ -126,20 +127,20 @@
 		} else if (state == kCTFontDescriptorMatchingWillBeginDownloading) {
 			dispatch_async( dispatch_get_main_queue(), ^ {
                 // Show a progress bar
-				_fProgressView.progress = 0.0;
-				_fProgressView.hidden = NO;
+				progressView.progress = 0.0;
+				progressView.hidden = NO;
 				NSLog(@"Begin Downloading");
 			});
 		} else if (state == kCTFontDescriptorMatchingDidFinishDownloading) {
 			dispatch_async( dispatch_get_main_queue(), ^ {
                 // Remove the progress bar
-				_fProgressView.hidden = YES;
+				progressView.hidden = YES;
 				NSLog(@"Finish downloading");
 			});
 		} else if (state == kCTFontDescriptorMatchingDownloading) {
 			dispatch_async( dispatch_get_main_queue(), ^ {
                 // Use the progress bar to indicate the progress of the downloading
-				[_fProgressView setProgress:progressValue / 100.0 animated:YES];
+				[progressView setProgress:progressValue / 100.0 animated:YES];
 				NSLog(@"Downloading %.0f%% complete", progressValue);
 			});
 		} else if (state == kCTFontDescriptorMatchingDidFailWithError) {
@@ -155,7 +156,7 @@
             errorDuringDownload = YES;
             
             dispatch_async( dispatch_get_main_queue(), ^ {
-                _fProgressView.hidden = YES;
+                progressView.hidden = YES;
 				NSLog(@"Download error: %@", _errorMessage);
 			});
 		}
@@ -172,18 +173,12 @@
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (FontCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	static NSString *MyIdentifier = @"netFontCell";
 	
 	// Try to retrieve from the table view a now-unused cell with the given identifier.
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
-	
-	// If no cell is available, create a new one using the given identifier.
-	if (cell == nil) {
-		// Use the default cell style.
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
-	}
+	FontCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
 	
 	// Set up the cell.
 	cell.textLabel.text = _fontNames[indexPath.row];
@@ -194,11 +189,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self asynchronouslySetFontName:_fontNames[indexPath.row]];
-    
-    // Dismiss the keyboard in the text view if it is currently displayed
-    if ([self.fTextView isFirstResponder])
-        [self.fTextView resignFirstResponder];
+    FontCell *cell = (FontCell *)[tableView cellForRowAtIndexPath:indexPath];
+    [self asynchronouslySetFontName:_fontNames[indexPath.row] previewLabel:cell.detailTextLabel progressView:cell.progressView];
 }
 
 @end
